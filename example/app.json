@@ -1,0 +1,22 @@
+{
+  "name": "rn-toast-example",
+  "displayName": "RnToast Example",
+  "expo": {
+    "name": "rn-toast-example",
+    "slug": "rn-toast-example",
+    "description": "Example app for rn-toast",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
