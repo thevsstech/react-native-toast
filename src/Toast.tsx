@@ -5,8 +5,11 @@ type Props = {
   children: any;
 };
 
-export const ToastRef = React.createRef<ToastProvider>();
+const ToastRef = React.createRef<ToastProvider>();
 
 export default function Toast({ children }: Props) {
   return <ToastProvider ref={ToastRef}>{children}</ToastProvider>;
 }
+
+Toast.show = ToastRef.current?.show;
+Toast.hide = ToastRef.current?.hide;
