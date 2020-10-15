@@ -29,7 +29,7 @@ const App = () => <Toast>
 
 
 ```
-then you can  show toast any where in your app
+then you can  show toast any where in your app, see [Configuration](#configuration) section to see available parameters you can pass into `show` function
 
 `````js
 
@@ -37,7 +37,7 @@ export default function HomeScreen() {
   const showDefault = () => {
     Toast.show({
       title: 'test',
-      duration: 300,
+      duration: 2000,
       position: 'top',
       animation: 'slide-bottom',
     });
@@ -53,6 +53,16 @@ export default function HomeScreen() {
 }
 
 `````
+
+the toast will be automatically hidden after given duration, but if you want the hide it before that you can call `hide` function
+
+````js
+
+ const hideDefault = () => {
+    Toast.hide()
+  };
+
+````
 
 ## Configuration
 

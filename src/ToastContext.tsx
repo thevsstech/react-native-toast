@@ -54,6 +54,10 @@ export default class ToastProvider extends React.PureComponent<Props, State> {
   }
 
   hide() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+
     this.setState((prev) => ({
       value: {
         ...(prev.value as Record<string, any>),
