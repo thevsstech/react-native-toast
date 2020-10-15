@@ -64,47 +64,23 @@ export default function App() {
   return (
     <Toast config={defaultConfig}>
       <View style={styles.container}>
-        <View
-          style={{
-            marginVertical: 5,
-          }}
-        >
+        <View style={styles.margin}>
           <Button title={'show default'} onPress={showDefault} />
         </View>
 
-        <View
-          style={{
-            marginVertical: 5,
-          }}
-        >
+        <View style={styles.margin}>
           <Button title={'show success'} onPress={showSuccessToast} />
         </View>
-        <View
-          style={{
-            marginVertical: 5,
-          }}
-        >
+        <View style={styles.margin}>
           <Button title={'show info'} onPress={showInfoToast} />
         </View>
-        <View
-          style={{
-            marginVertical: 5,
-          }}
-        >
+        <View style={styles.margin}>
           <Button title={'show warning'} onPress={showWarningToast} />
         </View>
-        <View
-          style={{
-            marginVertical: 5,
-          }}
-        >
+        <View style={styles.margin}>
           <Button title={'show error'} onPress={showErrorToast} />
         </View>
-        <View
-          style={{
-            marginVertical: 5,
-          }}
-        >
+        <View style={styles.margin}>
           <Button
             title={'show with custom styles'}
             onPress={showWithCustomStyles}
@@ -120,5 +96,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  margin: {
+    marginVertical: 5,
   },
 });
