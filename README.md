@@ -19,7 +19,7 @@ or with yarn
 yarn add rn-toast
 ```
 
-[usage](usage.gif =480x720)
+[usage](usage.gif)
 
 ## Usage
 to use toast first wrap your application or screen with toast like shown before
