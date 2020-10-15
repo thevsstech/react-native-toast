@@ -19,7 +19,7 @@ const styles = {
 export default class ToastProvider extends React.PureComponent<Props, State> {
   static defaultProps = {
     config: {
-      duration: 3000,
+      duration: 2000,
       type: 'default',
       position: 'bottom',
       animation: 'scale',
@@ -40,6 +40,7 @@ export default class ToastProvider extends React.PureComponent<Props, State> {
 
   show(info: ToastObject) {
     const toast = { ...this.props.config, ...info, visible: true };
+    console.log(this.timeoutId);
 
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
@@ -49,11 +50,15 @@ export default class ToastProvider extends React.PureComponent<Props, State> {
       {
         value: toast,
       },
-      () => setTimeout(this.hide, toast.duration)
+      () => {
+        this.timeoutId = setTimeout(this.hide, toast.duration);
+      }
     );
   }
 
   hide() {
+    console.log(this.timeoutId);
+
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }

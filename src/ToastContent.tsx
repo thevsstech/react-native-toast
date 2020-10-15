@@ -1,45 +1,24 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import type { ToastObjectWithVisibility, ToastStyles } from './types';
-import {
-  View,
-  TextStyle,
-  ViewStyle,
-  Animated,
-  StyleSheet,
-  Easing,
-} from 'react-native';
+import type {
+  StylePresetsTypes,
+  ToastObjectWithVisibility,
+  ToastStyles,
+} from './types';
+import { View, ViewStyle, Animated, Easing } from 'react-native';
 import AnimationPresets from './AnimationPresets';
+import StylePresets from './StylePresets';
 
 type Props = {
   value: ToastObjectWithVisibility;
   onHide: () => void;
 };
 
-const styles = {
-  root: {
-    ...StyleSheet.absoluteFillObject,
-  } as ViewStyle,
+const style = {
   container: {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    paddingVertical: 13,
-    borderRadius: 25,
     alignSelf: 'center',
     position: 'absolute',
     paddingHorizontal: 25,
   } as ViewStyle,
-  title: {
-    fontSize: 14,
-    fontWeight: '500',
-
-    letterSpacing: 0.5,
-    color: '#fff',
-  } as TextStyle,
-  message: {
-    fontSize: 12,
-    marginTop: 5,
-    fontWeight: '400',
-    color: '#fff',
-  } as TextStyle,
 };
 
 const positionStyles = {
@@ -66,11 +45,22 @@ export default function ToastContent({ value }: Props) {
 
   const data = value;
 
+  const styles = useMemo<ToastStyles>(() => {
+    let styleKey = (data.type + 'Styles') as keyof StylePresetsTypes;
+    let presetThemes = StylePresets.defaultStyles;
+    if (typeof StylePresets[styleKey] !== 'undefined') {
+      presetThemes = StylePresets[styleKey];
+    }
+    return {
+      container: { ...style.container, ...presetThemes.container },
+      message: presetThemes.message,
+    };
+  }, [data?.type]);
+
   let position = useMemo(() => positionStyles[data.position || 'bottom'], [
     data?.position,
   ]);
 
-  // @ts-ignore
   const animation: ToastStyles = useMemo(
     () => AnimationPresets[data?.animation || 'scale'](animate),
     [data?.animation, animate]
@@ -80,8 +70,6 @@ export default function ToastContent({ value }: Props) {
     () => (typeof data.style === 'function' ? data.style(animate) : data.style),
     [data, animate]
   );
-
-  console.log(position);
 
   return (
     <Animated.View
@@ -93,13 +81,6 @@ export default function ToastContent({ value }: Props) {
       ]}
     >
       <View>
-        {data.title ? (
-          <Animated.Text
-            style={[styles.title, animation?.title, customStyles?.title]}
-          >
-            {data.title}
-          </Animated.Text>
-        ) : null}
         {data.message ? (
           <Animated.Text
             style={[styles.message, animation?.message, customStyles?.message]}
