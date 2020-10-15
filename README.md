@@ -25,7 +25,7 @@ yarn add @thevsstech/react-native-toast
 to use toast first wrap your application or screen with toast like shown before
 
 ```js
-import Toast from "rn-toast";
+import Toast from "@thevsstech/react-native-toast";
 
 // app.tsx, index or whatever component is used as initial component
 
