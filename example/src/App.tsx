@@ -1,18 +1,23 @@
 import * as React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import RnToast from 'rn-toast';
+import { StyleSheet, View, Button } from 'react-native';
+import Toast from '../../src/Toast';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    RnToast.multiply(3, 7).then(setResult);
-  }, []);
+  const showDefault = () => {
+    Toast.show({
+      title: 'test',
+      duration: 300,
+      position: 'top',
+      animation: 'slide-bottom',
+    });
+  };
 
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <Toast>
+      <View style={styles.container}>
+        <Button title={'show'} onPress={showDefault} />
+      </View>
+    </Toast>
   );
 }
 

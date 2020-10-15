@@ -1,69 +1,76 @@
 import React, { RefObject } from 'react';
 import ToastContent from './ToastContent';
-import type {
-  ToastObject,
-  ToastObjectWithVisibility,
-  ToastType,
-} from './types';
+import type { ToastObject, ToastObjectWithVisibility } from './types';
+import { View } from 'react-native';
 
 type Props = {
   children: JSX.Element | JSX.Element[];
   ref: RefObject<ToastProvider>;
+  config?: ToastObject;
 };
 type State = {
-  value: ToastType;
+  value: ToastObject;
+};
+
+const styles = {
+  flex: { flex: 1 },
 };
 
 export default class ToastProvider extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      value: null,
-    };
-  }
-
-  defaultToast(): ToastObject {
-    return {
+  static defaultProps = {
+    config: {
       duration: 3000,
       type: 'default',
       position: 'bottom',
       animation: 'scale',
+    },
+  };
+  timeoutId?: number;
+
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      value: props.config as ToastObject,
     };
+
+    this.hide = this.hide.bind(this);
+    this.show = this.show.bind(this);
   }
 
-  show = (info: ToastObject) => {
-    const toast = { ...this.defaultToast, ...info, visible: true };
+  show(info: ToastObject) {
+    const toast = { ...this.props.config, ...info, visible: true };
+
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
 
     this.setState(
       {
         value: toast,
       },
-      () => setTimeout(() => this.hide(), toast.duration)
+      () => setTimeout(this.hide, toast.duration)
     );
-  };
+  }
 
-  hide = () => {
+  hide() {
     this.setState((prev) => ({
       value: {
         ...(prev.value as Record<string, any>),
         visible: false,
       } as ToastObject,
     }));
-  };
+  }
 
   render() {
     return (
-      <>
+      <View style={styles.flex}>
         {this.props.children}
-
-        {typeof this.state.value === 'object' ? (
-          <ToastContent
-            onHide={this.hide}
-            value={this.state.value as ToastObjectWithVisibility}
-          />
-        ) : null}
-      </>
+        <ToastContent
+          onHide={this.hide}
+          value={this.state.value as ToastObjectWithVisibility}
+        />
+      </View>
     );
   }
 }

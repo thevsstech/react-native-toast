@@ -1,7 +1,7 @@
 import type { ToastStyleType } from './types';
 
 const scale: ToastStyleType = (animation) => ({
-  root: {
+  container: {
     opacity: animation as any,
     transform: [
       {
@@ -11,8 +11,8 @@ const scale: ToastStyleType = (animation) => ({
   },
 });
 
-const slide: ToastStyleType = (animation) => ({
-  root: {
+const slideUp: ToastStyleType = (animation) => ({
+  container: {
     opacity: animation as any,
     transform: [
       {
@@ -25,4 +25,29 @@ const slide: ToastStyleType = (animation) => ({
   },
 });
 
-export default { scale, slide };
+const slideBottom: ToastStyleType = (animation) => ({
+  container: {
+    opacity: animation as any,
+    transform: [
+      {
+        translateY: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [-75, 0],
+        }) as any,
+      },
+    ],
+  },
+});
+
+const fade: ToastStyleType = (animation) => ({
+  container: {
+    opacity: animation as any,
+  },
+});
+
+export default {
+  scale,
+  'slide-up': slideUp,
+  'slide-bottom': slideBottom,
+  fade,
+};

@@ -15,7 +15,7 @@ yarn add rn-toast
 ```
 
 ## Usage
-to use toast first wrap your application or screen with toast
+to use toast first wrap your application or screen with toast like shown before
 
 ```js
 import Toast from "rn-toast";
@@ -29,6 +29,31 @@ const App = () => <Toast>
 
 
 ```
+then you can  show toast any where in your app
+
+`````js
+
+export default function HomeScreen() {
+  const showDefault = () => {
+    Toast.show({
+      title: 'test',
+      duration: 300,
+      position: 'top',
+      animation: 'slide-bottom',
+    });
+  };
+
+  return (
+    <Toast>
+      <View style={styles.container}>
+        <Button title={'show'} onPress={showDefault} />
+      </View>
+    </Toast>
+  );
+}
+
+`````
+
 
 ## Contributing
 

@@ -7,7 +7,7 @@ export type ToastStyles = {
 };
 
 type Position = 'top' | 'bottom';
-type Animation = 'scale' | 'slide';
+type Animation = 'scale' | 'slide-bottom' | 'slide-up' | 'fade';
 export type ToastStyleType = (value: Animated.Value) => ToastStyles;
 
 export type ToastObjectWithVisibility = ToastObject & {

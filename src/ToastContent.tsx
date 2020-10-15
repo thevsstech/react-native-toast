@@ -2,11 +2,11 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import type { ToastObjectWithVisibility, ToastStyles } from './types';
 import {
   View,
-  Text,
   TextStyle,
-  TouchableOpacity,
   ViewStyle,
   Animated,
+  StyleSheet,
+  Easing,
 } from 'react-native';
 import AnimationPresets from './AnimationPresets';
 
@@ -17,23 +17,15 @@ type Props = {
 
 const styles = {
   root: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    zIndex: 999999,
-    alignItems: 'center',
-    justifyContent: 'center',
+    ...StyleSheet.absoluteFillObject,
   } as ViewStyle,
   container: {
-    width: '80%',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    paddingVertical: 10,
-    borderRadius: 5,
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    paddingHorizontal: 10,
+    paddingVertical: 13,
+    borderRadius: 25,
+    alignSelf: 'center',
+    position: 'absolute',
+    paddingHorizontal: 25,
   } as ViewStyle,
   title: {
     fontSize: 14,
@@ -60,7 +52,7 @@ const positionStyles = {
   },
 };
 
-export default function ToastContent({ value, onHide }: Props) {
+export default function ToastContent({ value }: Props) {
   let animate = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -68,6 +60,7 @@ export default function ToastContent({ value, onHide }: Props) {
       duration: 100,
       toValue: value.visible ? 1 : 0,
       useNativeDriver: true,
+      easing: Easing.inOut(Easing.quad),
     }).start();
   }, [value.visible, animate]);
 
@@ -88,31 +81,33 @@ export default function ToastContent({ value, onHide }: Props) {
     [data, animate]
   );
 
-  if (value === null) {
-    return null;
-  }
+  console.log(position);
 
   return (
     <Animated.View
-      style={[styles.root, position, animation.root, customStyles?.root]}
+      style={[
+        styles.container,
+        position,
+        animation?.container,
+        customStyles?.container,
+      ]}
     >
-      {data && typeof data === 'object' ? (
-        <TouchableOpacity
-          onPress={onHide}
-          style={[styles.container, customStyles?.container]}
-        >
-          <View>
-            {data.title ? (
-              <Text style={[styles.title, customStyles?.title]}>
-                {data.title}
-              </Text>
-            ) : null}
-            {data.message ? (
-              <Text style={customStyles?.message}>{data.message}</Text>
-            ) : null}
-          </View>
-        </TouchableOpacity>
-      ) : null}
+      <View>
+        {data.title ? (
+          <Animated.Text
+            style={[styles.title, animation?.title, customStyles?.title]}
+          >
+            {data.title}
+          </Animated.Text>
+        ) : null}
+        {data.message ? (
+          <Animated.Text
+            style={[styles.message, animation?.message, customStyles?.message]}
+          >
+            {data.message}
+          </Animated.Text>
+        ) : null}
+      </View>
     </Animated.View>
   );
 }
