@@ -10,13 +10,13 @@ React Native cross-plateform (iOS/Android) toast notification component highly c
 ## Installation
 
 ```sh
-npm install rn-toast
+npm install @thevsstech/react-native-toast
 ```
 
 or with yarn
 
 ```sh
-yarn add rn-toast
+yarn add @thevsstech/react-native-toast
 ```
 
 ![usage](https://github.com/thevsstech/rn-toast/raw/master/usage_small.gif)
