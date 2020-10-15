@@ -43,10 +43,7 @@ then you can  show toast any where in your app, see [Configuration](#configurati
 export default function HomeScreen() {
   const showDefault = () => {
     Toast.show({
-      title: 'test',
-      duration: 2000,
-      position: 'top',
-      animation: 'slide-bottom',
+        message: 'your message comes here'
     });
   };
 
@@ -76,8 +73,7 @@ the toast will be automatically hidden after given duration, but if you want the
 | option | description | required | default value |
 | ------ | ----------- | -------- | ------------- |
 | duration | Time until the toast gets closed | false | 2000 |
-| title | title to show in toast | false | '' |
-| message | title to show in toast | false | '' |
+| message | message to show in toast, it can be a string or a function that resolves a react element | false | '' |
 | type | type of toast, available values are `default`, `error`, `success`, `warning`, `info` | false | default |
 | position | position of toast, available values are `bottom`, `top` | false | bottom |
 | animation | animation type of toast, available values are `scale`, `fade`, `slide-up`, `slide-bottom`, see [Animations](#animations) section custom animations | false | scale |
@@ -106,7 +102,8 @@ Toast.show({
     // this will override configs.duration
     duration: 2000,
     // this will override configs.position
-    position: 'bottom'
+    position: 'bottom',
+    message: 'your toast message comes here'
 })
 
 
@@ -119,11 +116,7 @@ for example below styling will make your toast more like native `ToastAndroid`
 
 ````js
  Toast.show({
-      message: 'test',
-      position: 'bottom',
-      animation: 'fade',
-      duration: 3000,
-
+      message: 'your toast message comes here',
       style: {
         container: {
           backgroundColor: '#eeeeee',
@@ -140,6 +133,29 @@ for example below styling will make your toast more like native `ToastAndroid`
 ````
 
 ## Animations
+
+By default rn-toast supports  `scale`, `fade`, `slide-up`, `slide-bottom` animations, but let say if you want to `slide-right` animation you can make it like this;
+
+`````js
+
+  Toast.show({
+      message: 'this toast will slide from right',
+      // if you pass style a function it will be called with an Animated.Value so you can interpolate it
+      style: (animatedValue) => ({
+        container: {
+          transform: [
+            {
+              translateX: animatedValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: [width, 0],
+              }),
+            },
+          ],
+        },
+      }),
+  });
+
+`````
 
 ## Contributing
 

@@ -4,7 +4,7 @@ import type {
   ToastObjectWithVisibility,
   ToastStyles,
 } from './types';
-import { View, ViewStyle, Animated, Easing } from 'react-native';
+import { ViewStyle, Animated, Easing } from 'react-native';
 import AnimationPresets from './AnimationPresets';
 import StylePresets from './StylePresets';
 
@@ -34,6 +34,7 @@ const positionStyles = {
 export default function ToastContent({ value }: Props) {
   let animate = useRef(new Animated.Value(0)).current;
 
+  // animates toast
   useEffect(() => {
     Animated.timing(animate, {
       duration: 100,
@@ -45,6 +46,7 @@ export default function ToastContent({ value }: Props) {
 
   const data = value;
 
+  // resolves preset styles
   const styles = useMemo<ToastStyles>(() => {
     let styleKey = (data.type + 'Styles') as keyof StylePresetsTypes;
     let presetThemes = StylePresets.defaultStyles;
@@ -57,19 +59,32 @@ export default function ToastContent({ value }: Props) {
     };
   }, [data?.type]);
 
-  let position = useMemo(() => positionStyles[data.position || 'bottom'], [
-    data?.position,
-  ]);
+  // resolves default position
+  let position = positionStyles[data.position || 'bottom'];
 
-  const animation: ToastStyles = useMemo(
-    () => AnimationPresets[data?.animation || 'scale'](animate),
-    [data?.animation, animate]
+  // resolves animation fron animation presets
+  // it's not defined somehow it will fallback to scale
+  const animation: ToastStyles = AnimationPresets[data?.animation || 'scale'](
+    animate
   );
 
   let customStyles: ToastStyles | undefined = useMemo(
     () => (typeof data.style === 'function' ? data.style(animate) : data.style),
     [data, animate]
   );
+
+  // message supports callables that returns react elements
+  const message = data.message ? (
+    typeof data.message === 'string' ? (
+      <Animated.Text
+        style={[styles.message, animation?.message, customStyles?.message]}
+      >
+        {data.message}
+      </Animated.Text>
+    ) : (
+      data.message(styles, animate)
+    )
+  ) : null;
 
   return (
     <Animated.View
@@ -80,15 +95,7 @@ export default function ToastContent({ value }: Props) {
         customStyles?.container,
       ]}
     >
-      <View>
-        {data.message ? (
-          <Animated.Text
-            style={[styles.message, animation?.message, customStyles?.message]}
-          >
-            {data.message}
-          </Animated.Text>
-        ) : null}
-      </View>
+      {message}
     </Animated.View>
   );
 }

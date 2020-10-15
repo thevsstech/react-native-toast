@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { Button, Dimensions, StyleSheet, View } from 'react-native';
 import Toast from '../../src/Toast';
 
 const defaultConfig = {
@@ -61,6 +61,26 @@ export default function App() {
     });
   };
 
+  const showWithCustomAnimations = () => {
+    const { width } = Dimensions.get('window');
+    Toast.show({
+      message: 'this toast will slide from right',
+      // if you pass style a function it will be called with an Animated.Value so you can interpolate it
+      style: (animatedValue) => ({
+        container: {
+          transform: [
+            {
+              translateX: animatedValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: [width, 0],
+              }),
+            },
+          ],
+        },
+      }),
+    });
+  };
+
   return (
     <Toast config={defaultConfig}>
       <View style={styles.container}>
@@ -80,10 +100,18 @@ export default function App() {
         <View style={styles.margin}>
           <Button title={'show error'} onPress={showErrorToast} />
         </View>
+
         <View style={styles.margin}>
           <Button
             title={'show with custom styles'}
             onPress={showWithCustomStyles}
+          />
+        </View>
+
+        <View style={styles.margin}>
+          <Button
+            title={'show with custom animatiopn'}
+            onPress={showWithCustomAnimations}
           />
         </View>
       </View>

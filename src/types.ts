@@ -1,10 +1,13 @@
 import type { TextStyle, ViewStyle, Animated } from 'react-native';
 import type StylePresets from './StylePresets';
 export type ToastStyles = {
-  container?: ViewStyle;
-  message?: TextStyle;
+  container?: AnimatedStyles<ViewStyle>;
+  message?: AnimatedStyles<TextStyle>;
 };
 
+export type AnimatedStyles<T extends ViewStyle> = {
+  [key in keyof T]: Animated.WithAnimatedValue<T[key]>;
+};
 type Position = 'top' | 'bottom';
 type Animation = 'scale' | 'slide-bottom' | 'slide-up' | 'fade';
 export type ToastStyleType = (value: Animated.Value) => ToastStyles;
@@ -14,9 +17,15 @@ export type ToastObjectWithVisibility = ToastObject & {
   visible: boolean;
 };
 
+type MessageCallback = (
+  styles?: ToastStyles,
+  animatedValue?: Animated.Value
+) => JSX.Element | JSX.Element[];
+type MessageType = string | MessageCallback;
+
 export type ToastObject = {
   title?: string;
-  message?: string;
+  message?: MessageType;
   type?: string;
   duration?: number;
   style?: ToastStyleType | ToastStyles;
