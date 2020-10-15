@@ -1,4 +1,9 @@
-# rn-toast
+# React Native Toast
+
+![expo supported](https://img.shields.io/static/v1?label=&message=Expo+Supported&color=success)
+![web supported](https://img.shields.io/static/v1?label=&message=Web+Supported&color=success)
+![react native 60+](https://img.shields.io/static/v1?label=%2060%2B%20Supported%0A&message=React+Native&color=informational)
+![react native 60+](https://img.shields.io/static/v1?label=Made+With&message=Love&color=ff3399)
 
 React Native cross-plateform (iOS/Android) toast notification component highly customizable.
 
