@@ -54,6 +54,19 @@ export default function HomeScreen() {
 
 `````
 
+## Configuration
+
+| option | description | required | default value |
+| ------ | ----------- | -------- | ------------- |
+| duration | Time until the toast gets closed | false | 2000 |
+| title | title to show in toast | false | '' |
+| message | title to show in toast | false | '' |
+| type | type of toast, available values are `default`, `error`, `success` | false | default |
+| position | position of toast, available values are `bottom`, `top` | false | bottom |
+| animation | animation type of toast, available values are `scale`, `fade`, `slide-up`, `slide-bottom`, see Animation section custom animations | false | scale |
+| style | see Styling section to make your custom styles | false | {}
+
+
 
 ## Contributing
 
