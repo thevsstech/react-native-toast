@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, Dimensions, StyleSheet, View } from 'react-native';
 import Toast from '../../src/Toast';
+import StylePresets from '../../src/StylePresets';
 
 const defaultConfig = {
   duration: 1000,
@@ -81,6 +82,27 @@ export default function App() {
     });
   };
 
+  const showWithCustomPresets = () => {
+    Toast.show({
+      message: 'your toast comes here',
+      type: 'success',
+      presetStyles: {
+        ...StylePresets,
+        successStyles: {
+          container: {
+            backgroundColor: '#69cf01',
+            paddingVertical: 15,
+            paddingHorizontal: 10,
+            borderRadius: 5,
+          },
+
+          message: {
+            color: '#000',
+          },
+        },
+      },
+    });
+  };
   return (
     <Toast config={defaultConfig}>
       <View style={styles.container}>
@@ -112,6 +134,13 @@ export default function App() {
           <Button
             title={'show with custom animatiopn'}
             onPress={showWithCustomAnimations}
+          />
+        </View>
+
+        <View style={styles.margin}>
+          <Button
+            title={'show with custom preset'}
+            onPress={showWithCustomPresets}
           />
         </View>
       </View>

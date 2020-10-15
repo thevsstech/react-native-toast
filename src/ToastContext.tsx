@@ -2,6 +2,7 @@ import React, { RefObject } from 'react';
 import ToastContent from './ToastContent';
 import type { ToastObject, ToastObjectWithVisibility } from './types';
 import { View } from 'react-native';
+import StylePresets from './StylePresets';
 
 type Props = {
   children: JSX.Element | JSX.Element[];
@@ -23,6 +24,7 @@ export default class ToastProvider extends React.PureComponent<Props, State> {
       type: 'default',
       position: 'bottom',
       animation: 'scale',
+      presetStyles: StylePresets,
     },
   };
   timeoutId?: number;
@@ -39,7 +41,12 @@ export default class ToastProvider extends React.PureComponent<Props, State> {
   }
 
   show(info: ToastObject) {
-    const toast = { ...this.props.config, ...info, visible: true };
+    const toast = {
+      ...ToastProvider.defaultProps,
+      ...this.props.config,
+      ...info,
+      visible: true,
+    };
     console.log(this.timeoutId);
 
     if (this.timeoutId) {

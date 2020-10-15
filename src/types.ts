@@ -23,6 +23,11 @@ type MessageCallback = (
 ) => JSX.Element | JSX.Element[];
 type MessageType = string | MessageCallback;
 
+type PresetType = Record<string, ToastStyles> &
+  {
+    [key in keyof typeof StylePresets]?: ToastStyles;
+  };
+
 export type ToastObject = {
   title?: string;
   message?: MessageType;
@@ -31,4 +36,5 @@ export type ToastObject = {
   style?: ToastStyleType | ToastStyles;
   position?: Position;
   animation?: Animation;
+  presetStyles?: PresetType;
 };

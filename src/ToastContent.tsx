@@ -4,7 +4,7 @@ import type {
   ToastObjectWithVisibility,
   ToastStyles,
 } from './types';
-import { ViewStyle, Animated, Easing } from 'react-native';
+import { Animated, Easing, ViewStyle } from 'react-native';
 import AnimationPresets from './AnimationPresets';
 import StylePresets from './StylePresets';
 
@@ -49,15 +49,18 @@ export default function ToastContent({ value }: Props) {
   // resolves preset styles
   const styles = useMemo<ToastStyles>(() => {
     let styleKey = (data.type + 'Styles') as keyof StylePresetsTypes;
-    let presetThemes = StylePresets.defaultStyles;
-    if (typeof StylePresets[styleKey] !== 'undefined') {
-      presetThemes = StylePresets[styleKey];
-    }
+    // yse preset styles from config if available
+    // if not fallback to default presets
+    let presetStyles = data.presetStyles || StylePresets;
+    let presetThemes = (typeof presetStyles[styleKey] !== 'undefined'
+      ? presetStyles[styleKey]
+      : presetStyles.defaultStyles) as ToastStyles;
+
     return {
       container: { ...style.container, ...presetThemes.container },
       message: presetThemes.message,
     };
-  }, [data?.type]);
+  }, [data?.type, data?.presetStyles]);
 
   // resolves default position
   let position = positionStyles[data.position || 'bottom'];
