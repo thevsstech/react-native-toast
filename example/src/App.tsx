@@ -2,6 +2,10 @@ import * as React from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 import Toast from '../../src/Toast';
 
+const defaultConfig = {
+  duration: 1000,
+};
+
 export default function App() {
   const showDefault = () => {
     Toast.show({
@@ -42,8 +46,6 @@ export default function App() {
       message: 'test',
       position: 'bottom',
       animation: 'fade',
-      duration: 3000,
-
       style: {
         container: {
           backgroundColor: '#eeeeee',
@@ -59,10 +61,8 @@ export default function App() {
     });
   };
 
-  console.log('rendering');
-
   return (
-    <Toast>
+    <Toast config={defaultConfig}>
       <View style={styles.container}>
         <View
           style={{
