@@ -19,7 +19,7 @@ or with yarn
 yarn add rn-toast
 ```
 
-[usage](usage.gif)
+![usage](https://github.com/thevsstech/rn-toast/raw/master/usage.gif)
 
 ## Usage
 to use toast first wrap your application or screen with toast like shown before
