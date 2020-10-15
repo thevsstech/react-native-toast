@@ -63,6 +63,9 @@ export default function HomeScreen() {
 ````js
 
 Toast.show({
+
+        // styles and animatedValue parameters are optional
+        // you can use animatedValue to interpolate some animations
         message: (styles, animatedValue) => <View style={{flexDirection: 'row'}}>
             <Icon name={'warning'} size={styles.message.fontSize} color={styles.message.color} />
             <Text style={styles.message}>Your toast message comes here</Text>
@@ -125,8 +128,9 @@ Toast.show({
 
 ## Styling
 
-you can pass your custom styles in configs as an object with 3 keys, `container`, `message`, `title`,
+You may use `type` configuration or you can pass your custom styles in configs as an object with 3 keys, `container`, `message`, `title`,
 for example below styling will make your toast more like native `ToastAndroid`
+
 
 ````js
  Toast.show({
@@ -145,6 +149,8 @@ for example below styling will make your toast more like native `ToastAndroid`
       },
     });
 ````
+
+
 
 ## Animations
 
