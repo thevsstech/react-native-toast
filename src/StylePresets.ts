@@ -3,7 +3,7 @@ import type { TextStyle } from 'react-native';
 
 const defaultStyles: ToastStyles = {
   container: {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    backgroundColor: 'rgb(29,29,29)',
     paddingVertical: 15,
     borderRadius: 25,
   },
