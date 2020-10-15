@@ -58,6 +58,20 @@ export default function HomeScreen() {
 
 `````
 
+`message` option can be a string or a function that returns a React elements
+
+````js
+
+Toast.show({
+        message: (styles, animatedValue) => <View style={{flexDirection: 'row'}}>
+            <Icon name={'warning'} size={styles.message.fontSize} color={styles.message.color} />
+            <Text style={styles.message}>Your toast message comes here</Text>
+        </View>
+});
+
+
+````
+
 the toast will be automatically hidden after given duration, but if you want the hide it before that you can call `hide` function
 
 ````js
