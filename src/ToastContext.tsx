@@ -18,6 +18,10 @@ const styles = {
 };
 
 export default class ToastProvider extends React.PureComponent<Props, State> {
+  // @ts-ignore
+  props: Props;
+  state: State;
+
   static defaultProps = {
     config: {
       duration: 2000,
@@ -42,12 +46,11 @@ export default class ToastProvider extends React.PureComponent<Props, State> {
 
   show(info: ToastObject) {
     const toast = {
-      ...ToastProvider.defaultProps,
+      ...ToastProvider.defaultProps.config,
       ...this.props.config,
       ...info,
       visible: true,
     };
-    console.log(this.timeoutId);
 
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
