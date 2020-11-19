@@ -1,6 +1,6 @@
 {
   "name": "@thevsstech/react-native-toast",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React Native cross-plateform (iOS/Android) toast notification component highly customizable.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

@@ -29,7 +29,7 @@ export default class ToastProvider extends React.PureComponent<Props, State> {
       position: 'bottom',
       animation: 'scale',
       presetStyles: StylePresets,
-    },
+    } as ToastObject,
   };
   timeoutId?: number;
 
@@ -67,8 +67,6 @@ export default class ToastProvider extends React.PureComponent<Props, State> {
   }
 
   hide() {
-    console.log(this.timeoutId);
-
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
