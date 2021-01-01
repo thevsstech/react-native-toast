@@ -95,7 +95,7 @@ the toast will be automatically hidden after given duration, but if you want the
 | position | position of toast, available values are `bottom`, `top` | false | bottom |
 | animation | animation type of toast, available values are `scale`, `fade`, `slide-up`, `slide-bottom`, see [Animations](#animations) section custom animations | false | scale |
 | style | see Styling section to make your custom styles, see [Styling](#styling) section to more details | false | {}
-
+| presetStyles |  see Styling section to creating custom types as well as styling built-in  types | false | {}
 
 you can pass this configurations in `show` method, or you can specify default configs as `<Toast configs={configs}`
 
